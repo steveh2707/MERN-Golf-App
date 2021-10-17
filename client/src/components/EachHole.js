@@ -2,6 +2,12 @@ import React from "react"
 
 function EachHole(props) {
 
+    let visualPoints = ""
+
+    if (props.score !== 0) {
+        visualPoints = props.score
+    }
+
     return (
         <div className='row'>
             <p className="holeNo">{props.hole}</p>
@@ -16,7 +22,7 @@ function EachHole(props) {
                 placeholder="Shots"
                 onChange={(event) => props.setShots(event.target.value)}
             />
-            <p className="scoreInput">{props.score}</p>
+            <p className="scoreInput">{visualPoints}</p>
         </div>
     )
 }

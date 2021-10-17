@@ -12,12 +12,6 @@ export const getRounds = () => dispatch => {
             }))
 }
 
-// export const deleteRound = id => {
-//     return {
-//         type: DELETE_ROUND,
-//         payload: id
-//     }
-// }
 
 export const deleteRound = id => dispatch => {
     axios
@@ -30,12 +24,6 @@ export const deleteRound = id => dispatch => {
         )
 }
 
-// export const addRound = round => {
-//     return {
-//         type: ADD_ROUND,
-//         payload: round
-//     }
-// }
 
 export const addRound = round => dispatch => {
     axios

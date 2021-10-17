@@ -18,10 +18,23 @@ h1 {
   text-align: center;
 }
 
+h2 {
+  
+  text-align: center;
+}
+
+.cellcenter {
+  text-align: center;
+}
+
+.rightjustify {
+  float: right;
+}
+
+
 .center {
   margin: 0 auto;
-  width: 570px;
-  height: 1100px;
+  width: 545px;
 }
 
 .row{
@@ -200,4 +213,9 @@ input[type=number]::-webkit-outer-spin-button {
 .fade-exit-active {
   opacity: 0.01;
   transition: opacity 1000ms ease-in;
+}
+
+.tablecenter {
+  margin: 0 auto;
+  max-width: 1300px;
 }

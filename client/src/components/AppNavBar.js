@@ -33,7 +33,7 @@ class AppNavBar extends Component {
                         <Collapse isOpen={this.state.isOpen} navbar>
                             <Nav className="al-auto" navbar>
                                 <NavItem>
-                                    <NavLink href="https://github.com/steveh2707/golfapp-react">
+                                    <NavLink href="https://github.com/steveh2707/MERN-Golf-App">
                                         GitHub
                                     </NavLink>
                                 </NavItem>

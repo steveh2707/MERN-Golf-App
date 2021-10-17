@@ -3,6 +3,10 @@ const Schema = mongoose.Schema
 
 // Create Schema
 const RoundSchema = new Schema({
+    datePosted: {
+        type: Date,
+        default: Date.now
+    },
     playerA: {
         type: String,
         
@@ -11,7 +15,7 @@ const RoundSchema = new Schema({
         type: String,
         
     },
-    date: {
+    datePlayed: {
         type: Date,
         
     },

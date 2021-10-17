@@ -9,7 +9,7 @@ const Round = require('../../models/Round')
 // @access  Public
 router.get('/', (req, res) => {
     Round.find()
-        .sort({ date: -1 })
+        .sort({ datePosted: -1 })
         .then(round => res.json(round))
 })
 
@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     const newRound = new Round({
         playerA: req.body.playerA,
         course: req.body.course,
-        date: req.body.date,
+        datePlayed: req.body.datePlayed,
         handicap: req.body.handicap,
         shots1: req.body.shots1,
         shots2: req.body.shots2,

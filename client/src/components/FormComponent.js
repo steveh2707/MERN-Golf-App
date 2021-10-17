@@ -8,15 +8,18 @@ import pointsCalculator from "./pointsCalculator"
 import { connect } from "react-redux"
 import { addRound } from "../actions/roundActions"
 
+
 function FormComponent(props) {
+
+
 
     function onSubmit(e) {
         e.preventDefault()
         const newRound = {
             playerA: playerA,
             course: course,
-            date: date,
-            handicap: handicap,
+            datePlayed: date,
+            handicap: playingHandicap,
             shots1: shots1,
             shots2: shots2,
             shots3: shots3,
@@ -123,7 +126,7 @@ function FormComponent(props) {
         if (allShots[i]) {
             allPoints[i] = pointsCalculator(playingHandicap, allShots[i], allHolePars[i], allHoleSIs[i])
         } else {
-            allPoints[i] = ""
+            allPoints[i] = 0
             allShots[i] = ""
         }
     }
@@ -140,7 +143,7 @@ function FormComponent(props) {
 
     return (
         <div className="center">
-            <h1>Scorecard Calculator {playerA}</h1>
+            <h1>Scorecard Calculator</h1>
             <br />
 
             <form onSubmit={onSubmit}>
@@ -279,11 +282,17 @@ function FormComponent(props) {
                     shots={front9shots + back9shots - playingHandicap}
                     SI={"NETT"}
                 />
-
                 <br />
 
-                <Button>submit</Button>
+                <div className="rightjustify">
+                    <Button color="secondary">Submit</Button>
+                    <Button color="danger">Clear</Button>
+                </div>
 
+
+                <br />
+                <br />
+                <br />
             </form>
         </div>
     )

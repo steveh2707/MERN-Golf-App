@@ -121,15 +121,10 @@ function PrevRounds(props) {
                             </tr>
                         </CSSTransition>
                     ))}
-
-
-
-
                 </tbody>
             </Table>
 
-
-
+            <p className="rightjustify">Shots (Points)</p>
 
 
         </div>

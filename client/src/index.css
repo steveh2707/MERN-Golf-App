@@ -19,8 +19,12 @@ h1 {
 }
 
 h2 {
-  
   text-align: center;
+}
+
+
+td {
+  vertical-align: middle;
 }
 
 .cellcenter {

@@ -9,8 +9,7 @@ function PrevRounds(props) {
 
     const styles = {
         cell: {
-            padding: "0.3rem",
-
+            padding: "0.3rem"
         },
         heading: {
             padding: "0.3rem"
@@ -23,7 +22,6 @@ function PrevRounds(props) {
 
     const [name, setName] = useState("")
     const [course, setCourse] = useState("")
-
 
     const { rounds } = props.round;
 
@@ -85,7 +83,7 @@ function PrevRounds(props) {
                             <th style={styles.cell}>Date</th>
                             <th style={styles.cell}>
                                 <select
-                                    className="nameSelector"
+                                    className="filter"
                                     value={name}
                                     onChange={(event) => setName(event.target.value)}
                                     name="name"
@@ -98,7 +96,7 @@ function PrevRounds(props) {
                             </th>
                             <th style={styles.cell}>
                                 <select
-                                    className="nameSelector"
+                                    className="filter"
                                     value={course}
                                     onChange={(event) => setCourse(event.target.value)}
                                     name="course"
@@ -164,6 +162,7 @@ function PrevRounds(props) {
                                     <td className="cellcenter" style={styles.cell}>{points1 + points2 + points3 + points4 + points5 + points6 + points7 + points8 + points9 + points10 + points11 + points12 + points13 + points14 + points15 + points16 + points17 + points18}</td>
                                     <td className="cellcenter" style={styles.cell}><Button
                                         className="remove-btn"
+                                        style={{margin: "0px"}}
                                         color="danger"
                                         size="sm"
                                         onClick={() => props.deleteRound(_id)

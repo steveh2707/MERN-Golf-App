@@ -11,8 +11,6 @@ import { addRound } from "../actions/roundActions"
 
 function FormComponent(props) {
 
-
-
     function onSubmit(e) {
         e.preventDefault()
         const newRound = {

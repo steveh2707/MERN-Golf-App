@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const rounds = require('./routes/api/rounds')
 const path = require('path')
-
 const app = express();
 
 //Bodyparser middleware

@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const rounds = require('./routes/api/rounds')
+const courses = require('./routes/api/courses')
 const path = require('path')
 const app = express();
 
@@ -18,6 +19,7 @@ mongoose
 
 // Use Routes
 app.use('/api/rounds',rounds)
+app.use('/api/courses',courses)
 
 // Serve static assets if in production
 

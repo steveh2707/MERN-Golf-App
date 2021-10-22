@@ -27,11 +27,4 @@ function EachHole(props) {
     )
 }
 
-// onChange={(event) => props.setShots(event.target.value)}
-// onBlur={() => props.setPoints([points])}
-
-// onChange={(e) => {props.setShots(e.target.value); props.setPoints([points])}}
-
-// onChange={async (e) => {props.setShots(e.target.value); setTimeout(props.setPoints([points]),1000)}}
-
 export default EachHole

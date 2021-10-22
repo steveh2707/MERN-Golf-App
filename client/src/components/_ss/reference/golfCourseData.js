@@ -54,3 +54,27 @@ const golfCourseData = [
 ]
 
 export default golfCourseData
+
+
+        // "courseName": "Lisburn Golf Club",
+        // "coursePar": 72,
+        // "slopeRatingYellow": 118,
+        // "holes": {
+        //     "1: { "name": "LISSUE", "yellowYds":458, "par": 5, "SI": 10 },
+        //     "2": { "name": "THE LAKE", "yellowYds":340, "par": 4, "SI": 16 },
+        //     "3": { "name": "EGLANTINE", "yellowYds":351, "par": 4, "SI": 6 },
+        //     "4": { "name": "LISNAGARVEY", "yellowYds":134, "par": 3, "SI": 18 },
+        //     "5": { "name": "BLARIS LODGE", "yellowYds":343, "par": 4, "SI": 4 },
+        //     "6": { "name": "LARCH GROVE", "yellowYds":144, "par": 3, "SI": 14 },
+        //     "7": { "name": "THE OAKS", "yellowYds":441, "par": 4, "SI": 2 },
+        //     "8": { "name": "CARNBANE", "yellowYds":484, "par": 5, "SI": 8 },
+        //     "9": { "name": "LEG OF MUTTON", "yellowYds":340, "par": 4, "SI": 12 },
+        //     "10": { "name": "AURORA", "yellowYds":447, "par": 4, "SI": 5 },
+        //     "11": { "name": "THREE BELLS", "yellowYds":381, "par": 4, "SI": 1 },
+        //     "12": { "name": "PINE ALLEY", "yellowYds":482, "par": 5, "SI": 13 },
+        //     "13": { "name": "GOVERNOR'S", "yellowYds":151, "par": 3, "SI": 17 },
+        //     "14": { "name": "PANORAMA", "yellowYds":477, "par": 5, "SI": 9 },
+        //     "15": { "name": "THE ROWANS", "yellowYds":349, "par": 4, "SI": 15 },
+        //     "16": { "name": "HAWTREE'S", "yellowYds":348, "par": 4, "SI": 7 },
+        //     "17": { "name": "DIVIS", "yellowYds":376, "par": 4, "SI": 3 },
+        //     "18": { "name": "THE GARDEN", "yellowYds":203, "par": 3, "SI": 11 }

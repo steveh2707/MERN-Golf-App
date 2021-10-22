@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
+import courseReducer from "./courseReducer";
 import roundReducer from "./roundReducer";
-// import {reducer as reduxFormReducer} from "redux-form"
 
 
 export default combineReducers({
     round: roundReducer,
-    // form: reduxFormReducer
+    course: courseReducer
 })

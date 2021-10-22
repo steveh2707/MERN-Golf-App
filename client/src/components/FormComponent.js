@@ -1,5 +1,4 @@
-import React, { useState } from "react"
-import golfCourseData from "./reference/golfCourseData"
+import React, { useState, useEffect } from "react"
 import EachHole from "./EachHole"
 import ExtraRows from "./ExtraRows"
 import arraySummer from "./arraySummer"
@@ -7,9 +6,17 @@ import { Button } from "reactstrap"
 import pointsCalculator from "./pointsCalculator"
 import { connect } from "react-redux"
 import { addRound } from "../actions/roundActions"
+import { getCourses } from "../actions/courseActions"
+import PropTypes from "prop-types"
 
 
 function FormComponent(props) {
+
+    useEffect(() => {
+        props.getCourses()
+    }, []);
+
+    const { courses } = props.course;
 
     function onSubmit(e) {
         e.preventDefault()
@@ -84,6 +91,32 @@ function FormComponent(props) {
     const [shots17, setShots17] = useState(0)
     const [shots18, setShots18] = useState(0)
 
+    function clearState() {
+        setPlayerA("")
+        setHandicap("")
+        setCourse("")
+        setDate(new Date().toISOString().slice(0, 10))
+        setHandicap("")
+        setShots1(0)
+        setShots2(0)
+        setShots3(0)
+        setShots4(0)
+        setShots5(0)
+        setShots6(0)
+        setShots7(0)
+        setShots8(0)
+        setShots9(0)
+        setShots10(0)
+        setShots11(0)
+        setShots12(0)
+        setShots13(0)
+        setShots14(0)
+        setShots15(0)
+        setShots16(0)
+        setShots17(0)
+        setShots18(0)
+    }
+
 
     // Create arrays of all shots and setShots from state
     let allShots = [shots1, shots2, shots3, shots4, shots5, shots6, shots7, shots8, shots9, shots10, shots11, shots12, shots13, shots14, shots15, shots16, shots17, shots18]
@@ -91,8 +124,8 @@ function FormComponent(props) {
     let allSetShots = [setShots1, setShots2, setShots3, setShots4, setShots5, setShots6, setShots7, setShots8, setShots9, setShots10, setShots11, setShots12, setShots13, setShots14, setShots15, setShots16, setShots17, setShots18]
 
     let allCourseNames = []
-    for (let i = 0; i < golfCourseData.length; i++) {
-        allCourseNames.push(golfCourseData[i].courseName)
+    for (let i = 0; i < courses.length; i++) {
+        allCourseNames.push(courses[i].courseName)
     }
 
     let courseIndex = allCourseNames.indexOf(course)
@@ -108,14 +141,14 @@ function FormComponent(props) {
 
 
     if (courseIndex >= 0) {
-        slopeRatingYellow = golfCourseData[courseIndex].slopeRatingYellow
+        slopeRatingYellow = courses[courseIndex].slopeRatingYellow
         courseHandicap = Math.round(handicap * slopeRatingYellow / 113) || 0
         playingHandicap = Math.round(courseHandicap * 0.95 || 0)
         for (let i = 1; i <= 18; i++) {
-            allHoleNames.push(golfCourseData[courseIndex].holes[i].name)
-            allHolePars.push(golfCourseData[courseIndex].holes[i].par)
-            allHoleSIs.push(golfCourseData[courseIndex].holes[i].SI)
-            allHoleYds.push(golfCourseData[courseIndex].holes[i].yellowYds)
+            allHoleNames.push(courses[courseIndex].holes[i].name)
+            allHolePars.push(courses[courseIndex].holes[i].par)
+            allHoleSIs.push(courses[courseIndex].holes[i].SI)
+            allHoleYds.push(courses[courseIndex].holes[i].yellowYds)
         }
     }
 
@@ -139,9 +172,14 @@ function FormComponent(props) {
     let back9Points = arraySummer(allPoints.slice(9, 18))
 
 
+
+
+
+
     return (
         <div className="center">
-            <h1>Scorecard Calculator</h1>
+            <h1>Scorecard Calculator
+            </h1>
             <br />
 
             <form onSubmit={onSubmit}>
@@ -154,8 +192,8 @@ function FormComponent(props) {
                         name="course"
                     >
                         <option value="">-- Please Select a Golf Course --</option>
-                        {allCourseNames.map(course => (
-                            <option key={course} value={course}>{course}</option>
+                        {allCourseNames.map((course,index) => (
+                            <option key={index} value={course}>{course}</option>
                         ))}
                     </select>
                 </div>
@@ -284,7 +322,7 @@ function FormComponent(props) {
 
                 <div className="rightjustify">
                     <Button color="secondary">Submit</Button>
-                    <Button color="danger">Clear</Button>
+                    <Button color="danger" onClick={() => clearState()} >Clear</Button>
                 </div>
 
 
@@ -296,12 +334,18 @@ function FormComponent(props) {
     )
 }
 
-const mapStateToProps = state => ({
-    round: state.round
+FormComponent.propTypes = {
+    getCourses: PropTypes.func.isRequired,
+    course: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    round: state.round,
+    course: state.course
 })
 
 
-export default connect(mapStateToProps, { addRound })(FormComponent)
+export default connect(mapStateToProps, { addRound, getCourses })(FormComponent)
 
 // const mapStateToProps = (state: IItemReduxProps) => ({
 //   item: state.item,

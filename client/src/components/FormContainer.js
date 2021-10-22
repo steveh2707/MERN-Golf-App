@@ -5,7 +5,7 @@ import FormComponent from "./FormComponent"
 import { Provider } from "react-redux"
 import store from "../store"
 import PrevRounds from "./PrevRounds"
-
+import AddGolfCourse from "./AddGolfCourse"
 
 
 function FormContainer() {
@@ -16,6 +16,8 @@ function FormContainer() {
                 <AppNavBar />
                 <FormComponent />
                 <PrevRounds />
+
+                <AddGolfCourse />
             </Provider>
         </div>
 

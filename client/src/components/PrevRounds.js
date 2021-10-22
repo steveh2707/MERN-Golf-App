@@ -25,6 +25,7 @@ function PrevRounds(props) {
 
     const { rounds } = props.round;
 
+
     let namesArr = []
     let courseArr = []
 
@@ -75,8 +76,6 @@ function PrevRounds(props) {
                 </ListGroup>
             </Container> */}
                 <h2>Previous Rounds</h2>
-
-
                 <Table>
                     <thead>
                         <tr>

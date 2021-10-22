@@ -41,6 +41,11 @@ td {
   width: 545px;
 }
 
+.centerModal {
+  margin: 0 auto;
+  width: 435px;
+}
+
 .row{
   display:flex; 
   margin: 0px;

@@ -15,9 +15,9 @@ function FormContainer() {
             <Provider store={store}>
                 <AppNavBar />
                 <FormComponent />
-                <PrevRounds />
-
                 <AddGolfCourse />
+                <br />           
+                <PrevRounds />
             </Provider>
         </div>
 

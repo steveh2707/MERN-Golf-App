@@ -10,6 +10,7 @@ import { getCourses } from "../actions/courseActions"
 import PropTypes from "prop-types"
 
 
+
 function FormComponent(props) {
 
     useEffect(() => {
@@ -171,11 +172,6 @@ function FormComponent(props) {
     let back9yards = arraySummer(allHoleYds.slice(9, 18))
     let back9Points = arraySummer(allPoints.slice(9, 18))
 
-
-
-
-
-
     return (
         <div className="center">
             <h1>Scorecard Calculator
@@ -320,15 +316,12 @@ function FormComponent(props) {
                 />
                 <br />
 
+
                 <div className="rightjustify">
                     <Button color="secondary">Submit</Button>
                     <Button color="danger" onClick={() => clearState()} >Clear</Button>
                 </div>
 
-
-                <br />
-                <br />
-                <br />
             </form>
         </div>
     )

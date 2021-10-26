@@ -15,6 +15,7 @@ function FormComponent(props) {
 
     useEffect(() => {
         props.getCourses()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const { courses } = props.course;

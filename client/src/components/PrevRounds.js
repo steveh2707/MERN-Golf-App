@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 import { getRounds, deleteRound, addRound } from "../actions/roundActions"
 import { connect } from "react-redux"
 import PropTypes from "prop-types"
-import { Container, ListGroup, ListGroupItem, Button, Table } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Button, Table } from 'reactstrap';
+import { CSSTransition } from 'react-transition-group';
 
 function PrevRounds(props) {
 
@@ -18,6 +18,7 @@ function PrevRounds(props) {
 
     useEffect(() => {
         props.getRounds()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const [name, setName] = useState("")
@@ -52,29 +53,7 @@ function PrevRounds(props) {
 
         return (
             <div className="tablecenter">
-                {/* <Container>
-                <ListGroup>
-                    <TransitionGroup >
-                        {rounds.map(({ _id, playerA, course }) => (
-                            <CSSTransition key={_id} timeout={500} classNames="fade">
-                                <ListGroupItem>
-                                    <Button
-                                        className="remove-btn"
-                                        color="danger"
-                                        size="sm"
-                                        onClick={() => props.deleteRound(_id)
-                                        }
-                                    >
-                                        &times;
-                                    </Button>
-                                    {_id + playerA + " " + course + " "}
-                                </ListGroupItem>
-
-                            </CSSTransition>
-                        ))}
-                    </TransitionGroup>
-                </ListGroup>
-            </Container> */}
+        
                 <h2>Previous Rounds</h2>
                 <Table>
                     <thead>
@@ -135,7 +114,7 @@ function PrevRounds(props) {
                         {filteredRounds.map(({ _id, datePlayed, playerA, course, handicap, shots1, shots2, shots3, shots4, shots5, shots6, shots7, shots8, shots9, shots10, shots11, shots12, shots13, shots14, shots15, shots16, shots17, shots18, points1, points2, points3, points4, points5, points6, points7, points8, points9, points10, points11, points12, points13, points14, points15, points16, points17, points18 }) => (
                             <CSSTransition key={_id} timeout={500} classNames="fade">
                                 <tr>
-                                    <td style={styles.cell} scope="row">{(datePlayed) ? datePlayed.toString().substring(0, 10) : "Unknown"}</td>
+                                    <td style={styles.cell} >{(datePlayed) ? datePlayed.toString().substring(0, 10) : "Unknown"}</td>
                                     <td style={styles.cell}>{playerA}</td>
                                     <td style={styles.cell}>{course}</td>
                                     <td className="cellcenter" style={styles.cell}>{handicap}</td>

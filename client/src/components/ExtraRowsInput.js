@@ -9,8 +9,6 @@ function ExtraRowsInput(props){
         <p className="yellowYds">{props.yellowYds}</p>
         <p className="parSI">{props.par}</p>
         <p className="parSI">{props.SI}</p>
-        {/* <p className="scoreInput">{props.shots}</p>
-        <p className="parSI">{props.points}</p> */}
     </div>
     )
 }

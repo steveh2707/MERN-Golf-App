@@ -1,5 +1,5 @@
 import { addCourse } from "../actions/courseActions";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import EachHoleInput from "./EachHoleInput";
 import { connect } from "react-redux";
 import arraySummer from "./arraySummer";
@@ -411,8 +411,15 @@ function AddGolfCourse(props) {
                 type="text"
                 onChange={(event) => setCourseName(event.target.value)}
               />
-              
             </div>
+
+            <div className='row'>
+                    <p className="holeNo">Hole</p>
+                    <p className="holeNameTitle">Name</p>
+                    <p className="parSI">Yds</p>
+                    <p className="scoreInput">Par</p>
+                    <p className="parSI">SI</p>
+                </div>
 
             {onetoeighteen.slice(0, 9).map((holeno) => (
               <EachHoleInput

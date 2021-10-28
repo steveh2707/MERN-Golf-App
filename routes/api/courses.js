@@ -1,19 +1,23 @@
 const express = require('express')
 const router = express.Router()
+const auth = require("../../middleware/auth")
 
 //State model
 const Course = require('../../models/Course')
 
-// @route   GET api/round
-// @desc    GET All Rounds
+// @route   GET api/course
+// @desc    GET All Courses
 // @access  Public
 router.get('/', (req, res) => {
     Course.find()
         .sort({ datePosted: -1 })
-        .then(round => res.json(round))
+        .then(course => res.json(course))
 })
 
-router.post('/', (req, res) => {
+// @route   POST api/course
+// @desc    POST a Course
+// @access  Private
+router.post('/', auth, (req, res) => {
     const newCourse = new Course({
         courseName: req.body.courseName,
         coursePar: req.body.coursePar,

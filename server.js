@@ -1,15 +1,16 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const rounds = require('./routes/api/rounds')
-const courses = require('./routes/api/courses')
+const express = require('express')
+const mongoose = require('mongoose')
+
 const path = require('path')
 const app = express();
+const config = require("config")
+
 
 //Bodyparser middleware
 app.use(express.json());
 
 // DB Config
-const db = require('./config/keys').mongoURI;
+const db = config.get("mongoURI");
 
 //Connect to Mongo
 mongoose
@@ -18,8 +19,10 @@ mongoose
     .catch(err => console.log(err));
 
 // Use Routes
-app.use('/api/rounds',rounds)
-app.use('/api/courses',courses)
+app.use('/api/rounds', require('./routes/api/rounds'))
+app.use('/api/courses', require('./routes/api/courses'))
+app.use('/api/users', require('./routes/api/users'))
+app.use('/api/auth', require('./routes/api/auth'))
 
 // Serve static assets if in production
 
@@ -32,6 +35,6 @@ if(process.env.NODE_ENV === 'production') {
     })
 }
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

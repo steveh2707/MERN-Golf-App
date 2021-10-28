@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const auth = require("../../middleware/auth")
 
 //State model
 const Round = require('../../models/Round')
@@ -15,8 +16,8 @@ router.get('/', (req, res) => {
 
 // @route   POST api/round
 // @desc    POST a Round
-// @access  Public
-router.post('/', (req, res) => {
+// @access  Private
+router.post('/', auth, (req, res) => {
     const newRound = new Round({
         playerA: req.body.playerA,
         course: req.body.course,
@@ -64,8 +65,8 @@ router.post('/', (req, res) => {
 
 // @route   DELETE api/round
 // @desc    DELETE a Round
-// @access  Public
-router.delete('/:id', (req, res) => {
+// @access  Private
+router.delete('/:id', auth, (req, res) => {
     Round.findById(req.params.id)
         .then(round => round.remove()
             .then(() => res.json({ success: true })))

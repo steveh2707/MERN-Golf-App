@@ -1,28 +1,23 @@
-import React from "react"
-import AppNavBar from "./AppNavBar"
-import FormComponent from "./FormComponent"
+import React from "react";
+import AppNavBar from "./AppNavBar";
+import FormComponent from "./FormComponent";
 
-import { Provider } from "react-redux"
-import store from "../store"
-import PrevRounds from "./PrevRounds"
-import AddGolfCourse from "./AddGolfCourse"
-
+import { Provider } from "react-redux";
+import store from "../store";
+import PrevRounds from "./PrevRounds";
 
 function FormContainer() {
-
-    return (
-        <div>
-            <Provider store={store}>
-                <AppNavBar />
-                <FormComponent />
-                <AddGolfCourse />
-                <br />           
-                <PrevRounds />
-            </Provider>
+  return (
+    <div>
+      <Provider store={store}>
+        <div style={{ minWidth: "1020px" }}>
+          <AppNavBar />
+          <FormComponent />
+          <PrevRounds />
         </div>
-
-    )
-
+      </Provider>
+    </div>
+  );
 }
 
-export default FormContainer
+export default FormContainer;

@@ -1,174 +1,220 @@
-import React, { useEffect, useState } from "react"
-import { getRounds, deleteRound, addRound } from "../actions/roundActions"
-import { connect } from "react-redux"
-import PropTypes from "prop-types"
-import { Button, Table } from 'reactstrap';
-import { CSSTransition } from 'react-transition-group';
+import React, { useEffect, useState } from "react";
+import { getRounds, deleteRound, addRound } from "../actions/roundActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Button, Table } from "reactstrap";
+import { CSSTransition } from "react-transition-group";
 
 function PrevRounds(props) {
+  const styles = {
+    cell: {
+      padding: "0.3rem",
+    },
+    heading: {
+      padding: "0.3rem",
+    },
+  };
 
-    const styles = {
-        cell: {
-            padding: "0.3rem"
-        },
-        heading: {
-            padding: "0.3rem"
-        }
-    }
+  useEffect(() => {
+    props.getRounds();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-        props.getRounds()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  function HoleColumns(props) {
+    return (
+      <th className="cellcenter" style={styles.cell}>
+        {props.value}
+      </th>
+    );
+  }
 
-    const [name, setName] = useState("")
-    const [course, setCourse] = useState("")
+  function RoundRows(props) {
+    return (
+      <td className="cellcenter" style={styles.cell}>
+        {props.shots + " (" + props.points + ")"}
+      </td>
+    );
+  }
 
-    const { rounds } = props.round;
+  let onetoeighteen = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+  ];
 
+  const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
 
-    let namesArr = []
-    let courseArr = []
+  const { rounds } = props.round;
 
-    for (let i = 0; i < rounds.length; i++) {
-        namesArr.push(rounds[i].playerA)
-        courseArr.push(rounds[i].course)
-    }
+  let namesArr = [];
+  let courseArr = [];
 
-    let namesArrNoDup = [...new Set(namesArr)];
-    let courseArrNoDup =  [...new Set(courseArr)];
+  for (let i = 0; i < rounds.length; i++) {
+    namesArr.push(rounds[i].playerA);
+    courseArr.push(rounds[i].course);
+  }
 
+  let namesArrNoDup = [...new Set(namesArr)];
+  let courseArrNoDup = [...new Set(courseArr)];
 
-    let filteredRounds = []
+  let filteredRounds = rounds;
 
-    if (name === "" && course === "") {
-        filteredRounds = rounds
-    } else if (name !== "" && course === "") {
-        filteredRounds = rounds.filter(element => element.playerA === name)
-    } else if (name === "" && course !== "") {
-        filteredRounds = rounds.filter(element => element.course === course)
-    } else if (name !== "" && course !== "") {
-        filteredRounds = rounds.filter(element => element.playerA === name).filter(element => element.course === course)
-    }
+  if (name !== "") {
+    filteredRounds = filteredRounds.filter(
+      (element) => element.playerA === name
+    );
+  }
 
-        return (
-            <div className="tablecenter">
-        
-                <h2>Previous Rounds</h2>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th style={styles.cell}>Date</th>
-                            <th style={styles.cell}>
-                                <select
-                                    className="filter"
-                                    value={name}
-                                    onChange={(event) => setName(event.target.value)}
-                                    name="name"
-                                >
-                                    <option value="">Name</option>
-                                    {namesArrNoDup.map(name => (
-                                        <option key={name} value={name}>{name}</option>
-                                    ))}
-                                </select>
-                            </th>
-                            <th style={styles.cell}>
-                                <select
-                                    className="filter"
-                                    value={course}
-                                    onChange={(event) => setCourse(event.target.value)}
-                                    name="course"
-                                >
-                                    <option value="">Course</option>
-                                    {courseArrNoDup.map(course => (
-                                        <option key={course} value={course}>{course}</option>
-                                    ))}
-                                </select>
-                            </th>
-                            <th className="cellcenter" style={styles.cell}>Hcap</th>
-                            <th className="cellcenter" style={styles.cell}>1</th>
-                            <th className="cellcenter" style={styles.cell}>2</th>
-                            <th className="cellcenter" style={styles.cell}>3</th>
-                            <th className="cellcenter" style={styles.cell}>4</th>
-                            <th className="cellcenter" style={styles.cell}>5</th>
-                            <th className="cellcenter" style={styles.cell}>6</th>
-                            <th className="cellcenter" style={styles.cell}>7</th>
-                            <th className="cellcenter" style={styles.cell}>8</th>
-                            <th className="cellcenter" style={styles.cell}>9</th>
-                            <th className="cellcenter" style={styles.cell}>10</th>
-                            <th className="cellcenter" style={styles.cell}>11</th>
-                            <th className="cellcenter" style={styles.cell}>12</th>
-                            <th className="cellcenter" style={styles.cell}>13</th>
-                            <th className="cellcenter" style={styles.cell}>14</th>
-                            <th className="cellcenter" style={styles.cell}>15</th>
-                            <th className="cellcenter" style={styles.cell}>16</th>
-                            <th className="cellcenter" style={styles.cell}>17</th>
-                            <th className="cellcenter" style={styles.cell}>18</th>
-                            <th className="cellcenter" style={styles.cell}>NETT</th>
-                            <th className="cellcenter" style={styles.cell}>PTS</th>
-                            <th className="cellcenter" style={styles.cell}></th>
-                        </tr>
-                    </thead>
-                    <tbody>
+  if (course !== "") {
+    filteredRounds = filteredRounds.filter(
+      (element) => element.course === course
+    );
+  }
 
-                        {filteredRounds.map(({ _id, datePlayed, playerA, course, handicap, shots1, shots2, shots3, shots4, shots5, shots6, shots7, shots8, shots9, shots10, shots11, shots12, shots13, shots14, shots15, shots16, shots17, shots18, points1, points2, points3, points4, points5, points6, points7, points8, points9, points10, points11, points12, points13, points14, points15, points16, points17, points18 }) => (
-                            <CSSTransition key={_id} timeout={500} classNames="fade">
-                                <tr>
-                                    <td style={styles.cell} >{(datePlayed) ? datePlayed.toString().substring(0, 10) : "Unknown"}</td>
-                                    <td style={styles.cell}>{playerA}</td>
-                                    <td style={styles.cell}>{course}</td>
-                                    <td className="cellcenter" style={styles.cell}>{handicap}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots1 + " (" + points1 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots2 + " (" + points2 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots3 + " (" + points3 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots4 + " (" + points4 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots5 + " (" + points5 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots6 + " (" + points6 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots7 + " (" + points7 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots8 + " (" + points8 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots9 + " (" + points9 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots10 + " (" + points10 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots11 + " (" + points11 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots12 + " (" + points12 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots13 + " (" + points13 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots14 + " (" + points14 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots15 + " (" + points15 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots16 + " (" + points16 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots17 + " (" + points17 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots18 + " (" + points18 + ")"}</td>
-                                    <td className="cellcenter" style={styles.cell}>{shots1 + shots2 + shots3 + shots4 + shots5 + shots6 + shots7 + shots8 + shots9 + shots10 + shots11 + shots12 + shots13 + shots14 + shots15 + shots16 + shots17 + shots18 - handicap}</td>
-                                    <td className="cellcenter" style={styles.cell}>{points1 + points2 + points3 + points4 + points5 + points6 + points7 + points8 + points9 + points10 + points11 + points12 + points13 + points14 + points15 + points16 + points17 + points18}</td>
-                                    <td className="cellcenter" style={styles.cell}><Button
-                                        className="remove-btn"
-                                        style={{margin: "0px"}}
-                                        color="danger"
-                                        size="sm"
-                                        onClick={() => props.deleteRound(_id)
-                                        }
-                                    >
-                                        &times;
-                                    </Button> </td>
-                                </tr>
-                            </CSSTransition>
-                        ))}
-                    </tbody>
-                </Table>
+  return (
+    <div className="tablecenter">
+      <h2>Previous Rounds</h2>
+      <Table>
+        <thead>
+          <tr>
+            <th style={styles.cell}>Date</th>
+            <th style={styles.cell}>
+              <select
+                className="filter"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                name="name"
+              >
+                <option value="">Name</option>
+                {namesArrNoDup.map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </th>
+            <th style={styles.cell}>
+              <select
+                className="filter"
+                value={course}
+                onChange={(event) => setCourse(event.target.value)}
+                name="course"
+              >
+                <option value="">Course</option>
+                {courseArrNoDup.map((course) => (
+                  <option key={course} value={course}>
+                    {course}
+                  </option>
+                ))}
+              </select>
+            </th>
+            <HoleColumns value="HCAP" />
+            {onetoeighteen.slice(0, 18).map((holeno) => (
+              <HoleColumns key={holeno} value={holeno} />
+            ))}
+            <HoleColumns value="NETT" />
+            <HoleColumns value="PTS" />
+            <HoleColumns value="" />
+            <th className="cellcenter" style={styles.cell}></th>
+          </tr>
+        </thead>
 
-                <p className="rightjustify">Shots (Points)</p>
+        <tbody>
+          {filteredRounds.map((element) => (
+            <CSSTransition key={element._id} timeout={500} classNames="fade">
+              <tr>
+                <td style={styles.cell}>
+                  {element.datePlayed
+                    ? element.datePlayed.toString().substring(0, 10)
+                    : "Unknown"}
+                </td>
+                <td style={styles.cell}>{element.playerA}</td>
+                <td style={styles.cell}>{element.course}</td>
+                <td className="cellcenter" style={styles.cell}>
+                  {element.handicap}
+                </td>
+                {onetoeighteen.map((holeno) => (
+                  <RoundRows
+                    key={holeno}
+                    shots={element["shots" + holeno]}
+                    points={element["points" + holeno]}
+                  />
+                ))}
+                <td className="cellcenter" style={styles.cell}>
+                  {element.shots1 +
+                    element.shots2 +
+                    element.shots3 +
+                    element.shots4 +
+                    element.shots5 +
+                    element.shots6 +
+                    element.shots7 +
+                    element.shots8 +
+                    element.shots9 +
+                    element.shots10 +
+                    element.shots11 +
+                    element.shots12 +
+                    element.shots13 +
+                    element.shots14 +
+                    element.shots15 +
+                    element.shots16 +
+                    element.shots17 +
+                    element.shots18 -
+                    element.handicap}
+                </td>
+                <td className="cellcenter" style={styles.cell}>
+                  {element.points1 +
+                    element.points2 +
+                    element.points3 +
+                    element.points4 +
+                    element.points5 +
+                    element.points6 +
+                    element.points7 +
+                    element.points8 +
+                    element.points9 +
+                    element.points10 +
+                    element.points11 +
+                    element.points12 +
+                    element.points13 +
+                    element.points14 +
+                    element.points15 +
+                    element.points16 +
+                    element.points17 +
+                    element.points18}
+                </td>
+                <td className="cellcenter" style={styles.cell}>
+                  {props.isAuthenticated ? (
+                    <Button
+                      className="remove-btn"
+                      style={{ margin: "0px" }}
+                      color="danger"
+                      size="sm"
+                      onClick={() => props.deleteRound(element._id)}
+                    >
+                      &times;
+                    </Button>
+                  ) : null}
+                </td>
+              </tr>
+            </CSSTransition>
+          ))}
+        </tbody>
+      </Table>
 
+      <p className="rightjustify">Shots (Points)</p>
+    </div>
+  );
+}
 
-            </div>
-        )
+PrevRounds.propTypes = {
+  getRounds: PropTypes.func.isRequired,
+  round: PropTypes.object.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
 
-    }
+const mapStateToProps = (state) => ({
+  round: state.round,
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-    PrevRounds.propTypes = {
-        getRounds: PropTypes.func.isRequired,
-        round: PropTypes.object.isRequired
-    }
-
-    const mapStateToProps = (state) => ({
-        round: state.round
-    })
-
-    export default connect(mapStateToProps, { getRounds, deleteRound, addRound })(PrevRounds)
+export default connect(mapStateToProps, { getRounds, deleteRound, addRound })(
+  PrevRounds
+);

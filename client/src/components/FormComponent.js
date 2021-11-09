@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import EachHole from "./EachHole";
 import ExtraRows from "./ExtraRows";
-import arraySummer from "./arraySummer";
+import arraySummer from "./tools/arraySummer";
 import { Button, Alert } from "reactstrap";
-import pointsCalculator from "./pointsCalculator";
+import pointsCalculator from "./tools/pointsCalculator";
 import { connect } from "react-redux";
 import { addRound } from "../actions/roundActions";
 import { getCourses } from "../actions/courseActions";
 import PropTypes from "prop-types";
-import AddGolfCourse from "./AddGolfCourse";
+import AddGolfCourse from "./AddNewCourse/AddGolfCourse";
 
 function FormComponent(props) {
   useEffect(() => {
@@ -17,12 +17,12 @@ function FormComponent(props) {
   }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     if (props.isAuthenticated) {
       setPlayerA(props.user.name);
     } else {
       setPlayerA("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isAuthenticated]);
 
   const { courses } = props.course;
@@ -30,6 +30,7 @@ function FormComponent(props) {
   function onSubmit(e) {
     e.preventDefault();
     const newRound = {
+      userID,
       playerA: playerA,
       course: course,
       datePlayed: date,
@@ -222,6 +223,12 @@ function FormComponent(props) {
   let back9par = arraySummer(allHolePars.slice(9, 18));
   let back9yards = arraySummer(allHoleYds.slice(9, 18));
   let back9Points = arraySummer(allPoints.slice(9, 18));
+
+  let userID = "N/A";
+
+  if (props.isAuthenticated) {
+    userID = props.user.id;
+  }
 
   return (
     <div className="center">

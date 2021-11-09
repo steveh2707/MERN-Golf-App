@@ -73,7 +73,7 @@ function PrevRounds(props) {
   return (
     <div className="tablecenter">
       <h2>Previous Rounds</h2>
-      <Table>
+      <Table style={{ fontSize: "13px" }}>
         <thead>
           <tr>
             <th style={styles.cell}>Date</th>
@@ -187,7 +187,20 @@ function PrevRounds(props) {
                       style={{ margin: "0px" }}
                       color="danger"
                       size="sm"
-                      onClick={() => props.deleteRound(element._id)}
+                      onClick={
+                        () => {
+                          if (
+                            window.confirm(
+                              "Are you sure you wish to delete this item?"
+                            )
+                          )
+                            props.deleteRound(element._id);
+                        }
+                        //   if (window.confirm("Are you sure")) {
+                        //     props.deleteRound(element._id);
+                        //   }
+                        // }
+                      }
                     >
                       &times;
                     </Button>

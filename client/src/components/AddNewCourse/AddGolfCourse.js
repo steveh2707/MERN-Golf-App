@@ -1,8 +1,8 @@
-import { addCourse } from "../actions/courseActions";
+import { addCourse } from "../../actions/courseActions";
 import React, { useState } from "react";
 import EachHoleInput from "./EachHoleInput";
 import { connect } from "react-redux";
-import arraySummer from "./arraySummer";
+import arraySummer from "../tools/arraySummer";
 import ExtraRowsInput from "./ExtraRowsInput";
 import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
 
@@ -384,10 +384,7 @@ function AddGolfCourse(props) {
 
   return (
     <div className="center">
-      <Button
-        color="dark"
-        onClick={() => setModal(!modal)}
-      >
+      <Button color="dark" onClick={() => setModal(!modal)}>
         Add New Course
       </Button>
 
@@ -398,101 +395,99 @@ function AddGolfCourse(props) {
 
         <ModalBody>
           <form onSubmit={onSubmit}>
+            <div className="centerModal">
+              <div className="row">
+                <p className="topLeft">Course</p>
+                <input
+                  style={{ width: "365px" }}
+                  className="playerName"
+                  value={courseName}
+                  placeholder="Enter Course Name"
+                  type="text"
+                  onChange={(event) => setCourseName(event.target.value)}
+                />
+              </div>
 
-          <div className="centerModal">
+              <div className="row">
+                <p className="holeNo">Hole</p>
+                <p className="holeNameTitle">Name</p>
+                <p className="parSI">Yds</p>
+                <p className="scoreInput">Par</p>
+                <p className="parSI">SI</p>
+              </div>
 
-            <div className="row">
-              <p className="topLeft">Course</p>
-              <input
-                style={{width: "365px"}}
-                className="playerName"
-                value={courseName}
-                placeholder="Enter Course Name"
-                type="text"
-                onChange={(event) => setCourseName(event.target.value)}
+              {onetoeighteen.slice(0, 9).map((holeno) => (
+                <EachHoleInput
+                  key={holeno}
+                  hole={holeno}
+                  holeNameState={allNames[holeno - 1]}
+                  setName={allSetNames[holeno - 1]}
+                  holeYdsState={allYellowYds[holeno - 1]}
+                  setYards={allSetYellowYds[holeno - 1]}
+                  par={allPars[holeno - 1]}
+                  setPar={allSetPars[holeno - 1]}
+                  SI={allSIs[holeno - 1]}
+                  setSI={allSetSIs[holeno - 1]}
+                />
+              ))}
+
+              <ExtraRowsInput
+                text={"IN"}
+                yellowYds={arraySummer(allYellowYds.slice(0, 9))}
+                par={arraySummer(allPars.slice(0, 9))}
+                shots={""}
+                points={""}
               />
-            </div>
 
-            <div className='row'>
-                    <p className="holeNo">Hole</p>
-                    <p className="holeNameTitle">Name</p>
-                    <p className="parSI">Yds</p>
-                    <p className="scoreInput">Par</p>
-                    <p className="parSI">SI</p>
-                </div>
+              {onetoeighteen.slice(9, 18).map((holeno) => (
+                <EachHoleInput
+                  key={holeno}
+                  hole={holeno}
+                  holeNameState={allNames[holeno - 1]}
+                  setName={allSetNames[holeno - 1]}
+                  holeYdsState={allYellowYds[holeno - 1]}
+                  setYards={allSetYellowYds[holeno - 1]}
+                  par={allPars[holeno - 1]}
+                  setPar={allSetPars[holeno - 1]}
+                  SI={allSIs[holeno - 1]}
+                  setSI={allSetSIs[holeno - 1]}
+                />
+              ))}
 
-            {onetoeighteen.slice(0, 9).map((holeno) => (
-              <EachHoleInput
-                key={holeno}
-                hole={holeno}
-                holeNameState={allNames[holeno - 1]}
-                setName={allSetNames[holeno - 1]}
-                holeYdsState={allYellowYds[holeno - 1]}
-                setYards={allSetYellowYds[holeno - 1]}
-                par={allPars[holeno - 1]}
-                setPar={allSetPars[holeno - 1]}
-                SI={allSIs[holeno - 1]}
-                setSI={allSetSIs[holeno - 1]}
+              <ExtraRowsInput
+                text={"OUT"}
+                yellowYds={arraySummer(allYellowYds.slice(9, 18))}
+                par={arraySummer(allPars.slice(9, 18))}
+                shots={""}
+                points={""}
               />
-            ))}
 
-            <ExtraRowsInput
-              text={"IN"}
-              yellowYds={arraySummer(allYellowYds.slice(0, 9))}
-              par={arraySummer(allPars.slice(0, 9))}
-              shots={""}
-              points={""}
-            />
-
-            {onetoeighteen.slice(9, 18).map((holeno) => (
-              <EachHoleInput
-                key={holeno}
-                hole={holeno}
-                holeNameState={allNames[holeno - 1]}
-                setName={allSetNames[holeno - 1]}
-                holeYdsState={allYellowYds[holeno - 1]}
-                setYards={allSetYellowYds[holeno - 1]}
-                par={allPars[holeno - 1]}
-                setPar={allSetPars[holeno - 1]}
-                SI={allSIs[holeno - 1]}
-                setSI={allSetSIs[holeno - 1]}
+              <ExtraRowsInput
+                text={"TOTAL"}
+                yellowYds={arraySummer(allYellowYds.slice(0, 18))}
+                par={arraySummer(allPars.slice(0, 18))}
+                shots={""}
+                points={""}
               />
-            ))}
 
-            <ExtraRowsInput
-              text={"OUT"}
-              yellowYds={arraySummer(allYellowYds.slice(9, 18))}
-              par={arraySummer(allPars.slice(9, 18))}
-              shots={""}
-              points={""}
-            />
+              <div className="row">
+                <p className="holeNo"></p>
+                <p className="holeTotals">SLOPE RATING</p>
+                <input
+                  className="yellowYds"
+                  value={slopeRatingYellow}
+                  placeholder="SR"
+                  type="number"
+                  onChange={(event) => setSlopeRatingYellow(event.target.value)}
+                />
+                <p className="parSI"></p>
+                <p className="parSI"></p>
+              </div>
 
-            <ExtraRowsInput
-              text={"TOTAL"}
-              yellowYds={arraySummer(allYellowYds.slice(0, 18))}
-              par={arraySummer(allPars.slice(0, 18))}
-              shots={""}
-              points={""}
-            />
-
-            <div className="row">
-              <p className="holeNo"></p>
-              <p className="holeTotals">SLOPE RATING</p>
-              <input
-                className="yellowYds"
-                value={slopeRatingYellow}
-                placeholder="SR"
-                type="number"
-                onChange={(event) => setSlopeRatingYellow(event.target.value)}
-              />
-              <p className="parSI"></p>
-              <p className="parSI"></p>
-            </div>
-
-            <br />
-            <div className="rightjustify">
-              <Button color="secondary">Submit</Button>
-            </div>
+              <br />
+              <div className="rightjustify">
+                <Button color="secondary">Submit</Button>
+              </div>
             </div>
           </form>
         </ModalBody>

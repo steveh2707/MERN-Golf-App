@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import {
-  // Collapse,
+  Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
@@ -10,60 +10,55 @@ import {
   Container,
 } from "reactstrap";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import RegisterModal from "./auth/RegisterModal";
 import LoginModal from "./auth/LoginModal";
 import Logout from "./auth/Logout";
 
-class AppNavBar extends Component {
-  state = {
-    isOpen: false,
-  };
+function AppNavBar(props) {
+  const [isOpen, setIsOpen] = useState(false);
+  const { isAuthenticated, user } = props.auth;
 
-  static propTypes = {
-    auth: PropTypes.object.isRequired,
-  };
+  const authLinks = (
+    <Fragment>
+      <NavItem>
+        <div className="navbar-text mr-3">
+          <strong>{user ? `Welcome ${user.name}` : ""}</strong>
+        </div>
+      </NavItem>
+      <NavItem>
+        <Logout />
+      </NavItem>
+    </Fragment>
+  );
 
-  toggle = () => {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  };
+  const guestLinks = (
+    <Fragment>
+      <NavItem>
+        <RegisterModal />
+      </NavItem>
+      <NavItem>
+        <LoginModal />
+      </NavItem>
+    </Fragment>
+  );
 
-  render() {
-    const { isAuthenticated, user } = this.props.auth;
+  const SPVmode = (
+    <NavLink href="/PreviousRounds" style={{ minWidth: "150px" }}>
+      Previous Rounds
+    </NavLink>
+  );
 
-    const authLinks = (
-      <Fragment>
-        <NavItem>
-          <div className="navbar-text mr-3">
-            <strong>{user ? `Welcome ${user.name}` : ""}</strong>
-          </div>
-        </NavItem>
-        <NavItem>
-          <Logout />
-        </NavItem>
-      </Fragment>
-    );
-
-    const guestLinks = (
-      <Fragment>
-        <NavItem>
-          <RegisterModal />
-        </NavItem>
-        <NavItem>
-          <LoginModal />
-        </NavItem>
-      </Fragment>
-    );
-
-    return (
-      <div>
-        <Navbar color="dark" dark expand="sm" className="mb-5">
-          <Container>
-            <NavbarBrand href="/">Scorecard Calculator</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            {/* <Collapse isOpen={this.state.isOpen} navbar> */}
+  return (
+    <div>
+      <Navbar color="dark" dark expand="sm" className="mb-1">
+        <Container>
+          <NavbarBrand href="/">Scorecard Calculator</NavbarBrand>
+          <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="me-auto" navbar>
+              {props.SPV ? null : SPVmode}
+            </Nav>
             <Nav className="al-auto" navbar>
               {isAuthenticated ? authLinks : guestLinks}
               <NavItem>
@@ -72,12 +67,11 @@ class AppNavBar extends Component {
                 </NavLink>
               </NavItem>
             </Nav>
-            {/* </Collapse> */}
-          </Container>
-        </Navbar>
-      </div>
-    );
-  }
+          </Collapse>
+        </Container>
+      </Navbar>
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => ({

@@ -10,21 +10,56 @@ import {
   Container,
 } from "reactstrap";
 import { connect } from "react-redux";
-// import PropTypes from "prop-types";
-import RegisterModal from "./auth/RegisterModal";
 import LoginModal from "./auth/LoginModal";
 import Logout from "./auth/Logout";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
+import { deepOrange } from "@mui/material/colors";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 
 function AppNavBar(props) {
   const [isOpen, setIsOpen] = useState(false);
   const { isAuthenticated, user } = props.auth;
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    anchorEl ? setAnchorEl(null) : setAnchorEl(event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   const authLinks = (
     <Fragment>
       <NavItem>
-        <div className="navbar-text mr-3">
-          <strong>{user ? `Welcome ${user.name}` : ""}</strong>
-        </div>
+        <NavLink className="pt-1 pb-0" onClick={handleClick} href="#">
+          <Avatar sx={{ width: 33, height: 33, bgcolor: deepOrange[500] }}>
+            {user ? user.name[0] : null}
+          </Avatar>
+          <Popover
+            anchorEl={anchorEl}
+            id={id}
+            open={open}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            {user ? (
+              <Typography sx={{ p: 1 }}>
+                User: {user.name}
+                <br />
+                Email: {user.email}
+              </Typography>
+            ) : null}
+          </Popover>
+        </NavLink>
       </NavItem>
       <NavItem>
         <Logout />
@@ -34,9 +69,6 @@ function AppNavBar(props) {
 
   const guestLinks = (
     <Fragment>
-      <NavItem>
-        <RegisterModal />
-      </NavItem>
       <NavItem>
         <LoginModal />
       </NavItem>
@@ -63,7 +95,9 @@ function AppNavBar(props) {
               {isAuthenticated ? authLinks : guestLinks}
               <NavItem>
                 <NavLink href="https://github.com/steveh2707/MERN-Golf-App">
-                  GitHub
+                  <Tooltip title="GitHub Repository">
+                    <GitHubIcon />
+                  </Tooltip>
                 </NavLink>
               </NavItem>
             </Nav>

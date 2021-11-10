@@ -10,11 +10,15 @@ import {
   Input,
   NavLink,
   Alert,
+  ModalFooter,
 } from "reactstrap";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/authActions";
 import { clearErrors } from "../../actions/errorActions";
+import LoginIcon from "@mui/icons-material/Login";
+import Tooltip from "@mui/material/Tooltip";
+import RegisterModal from "./RegisterModal";
 
 class LoginModal extends Component {
   state = {
@@ -80,7 +84,9 @@ class LoginModal extends Component {
     return (
       <div>
         <NavLink onClick={this.toggle} href="#">
-          Login
+          <Tooltip title="Login or Register">
+            <LoginIcon />
+          </Tooltip>
         </NavLink>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
@@ -109,12 +115,16 @@ class LoginModal extends Component {
                   className="mb-3"
                   onChange={this.onChange}
                 />
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
+                <Button color="primary" style={{ marginTop: "2rem" }} block>
                   Login
                 </Button>
               </FormGroup>
             </Form>
           </ModalBody>
+          <ModalFooter>
+            <p>Dont have an Account?</p>
+            <RegisterModal />
+          </ModalFooter>
         </Modal>
       </div>
     );

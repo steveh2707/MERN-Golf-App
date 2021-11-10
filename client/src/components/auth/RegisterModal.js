@@ -8,7 +8,7 @@ import {
   FormGroup,
   Label,
   Input,
-  NavLink,
+  // NavLink,
   Alert,
 } from "reactstrap";
 import { connect } from "react-redux";
@@ -82,9 +82,9 @@ class RegisterModal extends Component {
   render() {
     return (
       <div>
-        <NavLink onClick={this.toggle} href="#">
+        <Button color="light" onClick={this.toggle} href="#">
           Register
-        </NavLink>
+        </Button>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Register</ModalHeader>
@@ -121,7 +121,7 @@ class RegisterModal extends Component {
                   className="mb-3"
                   onChange={this.onChange}
                 />
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
+                <Button color="primary" style={{ marginTop: "2rem" }} block>
                   Register
                 </Button>
               </FormGroup>

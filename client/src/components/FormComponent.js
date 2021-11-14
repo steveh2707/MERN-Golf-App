@@ -21,6 +21,8 @@ function FormComponent(props) {
       setPlayerA(props.user.name);
     } else {
       setPlayerA("");
+      // eval("setShots" + 2)(2);
+      // window["setShots" + "2"](1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isAuthenticated]);
@@ -305,6 +307,7 @@ function FormComponent(props) {
             hole={holeno}
             shotsState={allShots[holeno - 1]}
             setShots={allSetShots[holeno - 1]}
+            // setShots={eval("setShots" + holeno)}
             name={allHoleNames[holeno - 1]}
             par={allHolePars[holeno - 1]}
             SI={allHoleSIs[holeno - 1]}
@@ -327,6 +330,7 @@ function FormComponent(props) {
             hole={holeno}
             shotsState={allShots[holeno - 1]}
             setShots={allSetShots[holeno - 1]}
+            // setShots={eval("setShots" + holeno)}
             name={allHoleNames[holeno - 1]}
             par={allHolePars[holeno - 1]}
             SI={allHoleSIs[holeno - 1]}

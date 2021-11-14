@@ -5,9 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Tooltip from "@mui/material/Tooltip";
-
-// import { Provider } from "react-redux";
-// import store from "../store";
 import PrevRounds from "./PrevRounds";
 
 function FormContainer() {

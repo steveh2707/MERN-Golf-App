@@ -21,8 +21,6 @@ function FormComponent(props) {
       setPlayerA(props.user.name);
     } else {
       setPlayerA("");
-      // eval("setShots" + 2)(2);
-      // window["setShots" + "2"](1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.isAuthenticated]);
